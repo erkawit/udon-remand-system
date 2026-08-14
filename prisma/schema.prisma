@@ -1,0 +1,91 @@
+// Prisma Schema for Udon Thani Provincial Court Remand Tracking System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  POLICE
+  COURT
+  ADMIN
+}
+
+enum RequestStatus {
+  DRAFT
+  SUBMITTED
+  ACCEPTED
+  REJECTED
+  CLOSED
+}
+
+model Station {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  code      String?  @unique
+  users     User[]
+  requests  RemandRequest[]
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(POLICE)
+  stationId    String?
+  station      Station? @relation(fields: [stationId], references: [id], onDelete: SetNull)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model RemandRequest {
+  id                    String        @id @default(cuid())
+  blackNo               String
+  redNo                 String?
+  suspectName           String
+  charge                String
+  stationId             String
+  station               Station       @relation(fields: [stationId], references: [id])
+  maxDays               Int           @default(84)
+  maxK                  Int           @default(7)
+  currentK              Int           @default(1)
+  cumulativeDays        Int           @default(0)
+  status                RequestStatus @default(SUBMITTED)
+  startDate             DateTime
+  nextOccasionDueDate   DateTime
+  nextOccasionFilingDate DateTime
+  reason                String?
+  courtOrderNote        String?
+  attachments           Attachment[]
+  auditLogs             AuditLog[]
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+}
+
+model Attachment {
+  id           String        @id @default(cuid())
+  requestId    String
+  request      RemandRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  driveFileId  String
+  fileName     String
+  fileUrl      String
+  uploadedAt   DateTime      @default(now())
+  autoDeleteAt DateTime
+}
+
+model AuditLog {
+  id        String         @id @default(cuid())
+  requestId String?
+  request   RemandRequest? @relation(fields: [requestId], references: [id], onDelete: SetNull)
+  action    String
+  actorName String
+  actorRole Role
+  details   String?
+  timestamp DateTime       @default(now())
+}
