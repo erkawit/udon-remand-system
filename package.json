@@ -5,7 +5,7 @@
   "description": "ระบบติดตามคำร้องขอฝากขัง ศาลจังหวัดอุดรธานี",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "test": "node --test lib/*.test.js",
     "db:push": "prisma db push",
@@ -19,9 +19,13 @@
     "jsonwebtoken": "^9.0.2",
     "next": "^14.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "prisma": "^5.10.2"
+  },
+  "overrides": {
+    "uuid": "^11.1.0"
   }
 }
