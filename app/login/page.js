@@ -204,7 +204,7 @@ function LoginContent() {
 
             <form onSubmit={handleCreateFirstCourt}>
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ชื่อ-ตำแหน่ง เจ้าหน้าที่ศาล</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ชื่อ-ตำแหน่ง เจ้าหน้าที่ศาล</label>
                 <input
                   type="text"
                   value={setupName}
@@ -216,7 +216,7 @@ function LoginContent() {
               </div>
 
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ตั้งรหัสผ่าน</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ตั้งรหัสผ่าน</label>
                 <input
                   type="password"
                   value={setupPassword}
@@ -227,7 +227,7 @@ function LoginContent() {
               </div>
 
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ยืนยันรหัสผ่าน</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ยืนยันรหัสผ่าน</label>
                 <input
                   type="password"
                   value={setupConfirm}
