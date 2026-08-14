@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const STATIONS = [
@@ -11,7 +11,7 @@ const STATIONS = [
   "สภ.นายูง","สภ.กู่แก้ว","สภ.ประจักษ์ศิลปาคม",
 ];
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const portalParam = searchParams.get('portal'); // 'police' | 'court'
@@ -204,7 +204,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleCreateFirstCourt}>
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ชื่อ-ตำแหน่ง เจ้าหน้าที่ศาล</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ชื่อ-ตำแหน่ง เจ้าหน้าที่ศาล</label>
                 <input
                   type="text"
                   value={setupName}
@@ -216,7 +216,7 @@ export default function LoginPage() {
               </div>
 
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ตั้งรหัสผ่าน</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ตั้งรหัสผ่าน</label>
                 <input
                   type="password"
                   value={setupPassword}
@@ -227,7 +227,7 @@ export default function LoginPage() {
               </div>
 
               <div style={{ marginBottom: '0.75rem' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#5B5540', marginBottom: '0.25rem' }}>ยืนยันรหัสผ่าน</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight 600, color: '#5B5540', marginBottom: '0.25rem' }}>ยืนยันรหัสผ่าน</label>
                 <input
                   type="password"
                   value={setupConfirm}
@@ -419,5 +419,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '3rem', color: '#8A836B' }}>กำลังโหลด...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }
